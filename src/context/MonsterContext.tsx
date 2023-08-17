@@ -36,6 +36,7 @@ const defaultMonster: Monster = {
         "Run away! Goblings can hide almost anywhere. If they reach a hidey hole, they vanish and recover full HP",
     },
   ],
+  chunks: [],
 };
 
 type Action =
