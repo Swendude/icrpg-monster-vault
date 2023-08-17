@@ -32,8 +32,8 @@ export type Action = {
 export type Monster = {
   name: string;
   hp: number;
-  stats: Partial<Record<Stat, null | number>>;
-  efforts: Partial<Record<Effort, null | number>>;
+  stats: Partial<Record<Stat, number>>;
+  efforts: Partial<Record<Effort, number>>;
   actions: Action[];
   chunks: Chunk[];
 };
@@ -42,8 +42,8 @@ export type Chunk = {
   name: string;
   description: string;
   hp: number;
-  stats: Partial<Record<Stat, null | number>>;
-  efforts: Partial<Record<Effort, null | number>>;
+  stats: Partial<Record<Stat, number>>;
+  efforts: Partial<Record<Effort, number>>;
   actions: Action[];
 };
 
@@ -54,7 +54,7 @@ export type MonsterGeno = {
   chunks: Chunk[];
 };
 
-const addAttrRecord = <T extends Partial<Record<string, null | number>>>(
+const addAttrRecord = <T extends Partial<Record<string, number>>>(
   r1: Partial<T>,
   r2: Partial<T>,
   keys: (keyof T)[],

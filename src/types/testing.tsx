@@ -5,7 +5,7 @@ const chunks: Chunk[] = [
     name: "Gerblin Ingenuity",
     description: "Gerblins are crafty, especially with crafty things",
     stats: { STR: 2 },
-    efforts: {},
+    efforts: { ULTIMATE: 7 },
     actions: [
       {
         name: "Crummy Weapon",
