@@ -1,9 +1,9 @@
 import { Chunk, MonsterGeno } from "./icrpg";
 
-const chunks: Chunk[] = [
+export const chunks: Chunk[] = [
   {
+    id: 1,
     name: "Gerblin Ingenuity",
-    description: "Gerblins are crafty, especially with crafty things",
     stats: { STR: 2 },
     efforts: { ULTIMATE: 7 },
     actions: [
@@ -19,8 +19,8 @@ const chunks: Chunk[] = [
     hp: 0,
   },
   {
+    id: 2,
     name: "Nimble Body",
-    description: "Small but quick",
     stats: { DEX: 2 },
     efforts: {},
     actions: [
@@ -33,8 +33,36 @@ const chunks: Chunk[] = [
     hp: 1,
   },
   {
+    id: 3,
     name: "Pack Hunter",
-    description: "Strength in numbers",
+    stats: {},
+    efforts: {},
+    actions: [
+      {
+        name: "Alert the pack!",
+        description:
+          "Release a terrible scream, next TURN 1D4 creatures of the same type arrive",
+      },
+    ],
+    hp: 0,
+  },
+  {
+    id: 4,
+    name: "Black Powder Keg",
+    stats: {},
+    efforts: {},
+    actions: [
+      {
+        name: "Volatile!",
+        description:
+          "Don’t stab it! When killed, explodes, doing ULTIMATE to all within NEAR range",
+      },
+    ],
+    hp: 0,
+  },
+  {
+    id: 3,
+    name: "Pack Hunter",
     stats: {},
     efforts: {},
     actions: [

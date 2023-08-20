@@ -2,14 +2,12 @@ import { MonsterProvider } from "@/context/MonsterContext";
 import "./globals.css";
 import type { Metadata } from "next";
 
-import { Fira_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 
-const fira = Fira_Mono({
-  weight: ["400", "700"],
+const inter = Inter({
   subsets: ["latin"],
-  preload: true,
-  variable: "--fira",
+  variable: "--inter",
 });
 
 const flatbread = localFont({
@@ -30,7 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <MonsterProvider>
         <body
-          className={`${fira.variable} ${flatbread.variable} bg-stone-950 font-mono`}
+          className={`${inter.variable} ${flatbread.variable} bg-stone-950 font-sans`}
         >
           {children}
         </body>

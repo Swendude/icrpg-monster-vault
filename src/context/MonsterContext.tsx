@@ -11,7 +11,7 @@ import {
 
 type Action =
   | { type: "updateName"; value: string }
-  | { type: "removeChunk"; index: number };
+  | { type: "removeChunk"; chunkId: number };
 
 // type MonsterState = {
 
@@ -24,7 +24,7 @@ const monsterReducer = (monster: MonsterGeno, action: Action): MonsterGeno => {
     case "removeChunk":
       return {
         ...monster,
-        chunks: monster.chunks.filter((_, i) => i !== action.index),
+        chunks: monster.chunks.filter((c) => c.id !== action.chunkId),
       };
     default:
       return action satisfies never;

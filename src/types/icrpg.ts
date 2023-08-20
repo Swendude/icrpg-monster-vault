@@ -39,15 +39,15 @@ export type Monster = {
 };
 
 export type Chunk = {
+  id: number;
   name: string;
-  description: string;
   hp: number;
   stats: Partial<Record<Stat, number>>;
   efforts: Partial<Record<Effort, number>>;
   actions: Action[];
 };
 
-type ChunkAttrs = Omit<Chunk, "name" | "description">;
+type ChunkAttrs = Omit<Chunk, "name" | "description" | "id">;
 
 export type MonsterGeno = {
   name: string;
@@ -77,7 +77,7 @@ export const addChunk = (g1: ChunkAttrs, g2: ChunkAttrs): ChunkAttrs => {
 
 export const toFeno = (mg: MonsterGeno): Monster => {
   const chunkAttrs: ChunkAttrs[] = mg.chunks.map((c) => {
-    const { name, description, ...attrs } = c;
+    const { name, ...attrs } = c;
     return attrs;
   });
   const totalAttrs = chunkAttrs.reduce(addChunk, {

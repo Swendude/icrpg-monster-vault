@@ -7,9 +7,10 @@ import D8 from "./d8_outline_number.svg";
 import D10 from "./d10_outline_number.svg";
 import D12 from "./d12_outline_number.svg";
 import D6 from "./d6_outline_number.svg";
+import Dot from "./tag_empty.svg";
 import { Dice } from "@/types/icrpg";
 
-type IconVariants = "Skull" | "Dice Skull" | "Heart";
+type IconVariants = "Skull" | "Dice Skull" | "Heart" | "Dot";
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {
   variant: IconVariants | Dice;
@@ -35,6 +36,8 @@ const Icon = ({ variant, ...props }: IconProps) => {
       return <D10 viewBox="-32 -32 64 64" {...props} />;
     case "D12":
       return <D12 viewBox="-32 -32 64 64" {...props} />;
+    case "Dot":
+      return <Dot viewBox="0 0 30 30" {...props} />;
 
     default:
       return variant satisfies never;
