@@ -1,4 +1,5 @@
-import { chunks } from "@/types/testing";
+import { chunks } from "@/lib/testing";
+
 const ChunkSelect = () => {
   return (
     <section>

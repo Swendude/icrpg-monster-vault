@@ -1,11 +1,12 @@
 "use client";
+import ChunkBlock from "@/components/ChunkBlock";
 import ChunkSelect from "@/components/ChunkSelect";
 import Header from "@/components/Header";
 import Modal from "@/components/Modal";
 import StatBlock from "@/components/StatBlock";
 import { MonsterContext, useMonsterContext } from "@/context/MonsterContext";
 import Icon from "@/icons/Icon";
-import { Chunk, EFFORTS, Monster, STATS } from "@/types/icrpg";
+import { Chunk, EFFORTS, Monster, STATS } from "@/lib/icrpg";
 import { ClassType, ReactNode, useState } from "react";
 
 const Label = ({
@@ -27,56 +28,6 @@ const Label = ({
   );
 };
 
-const ChunkSummary = ({
-  chunk,
-  onDelete,
-}: {
-  chunk: Chunk;
-  onDelete: () => void;
-}) => {
-  const hpRepr = chunk.hp > 0 ? `+${chunk.hp} HEARTS` : null;
-  const statsReps = Object.entries(chunk.stats).map(
-    ([stat, val]) => `+${val} ${stat}`,
-  );
-  const effortReps = Object.entries(chunk.efforts).map(
-    ([effort, val]) => `+${val} ${effort}`,
-  );
-  const actionReps = chunk.actions.map((action) => action.name);
-
-  const repr = [hpRepr, ...statsReps, ...effortReps, ...actionReps].filter(
-    (v) => v !== null,
-  );
-
-  return (
-    <div className="">
-      <div className="flex justify-between rounded-t-xl border-b-2 border-dashed border-white bg-red p-2 pt-2 font-flat text-white">
-        <h2 className="">{chunk.name}:</h2>
-        <button
-          onClick={onDelete}
-          className="aspect-square h-8 rounded-full border-2 bg-white text-xs text-red hover:bg-red"
-        >
-          🗙
-        </button>
-      </div>
-
-      <ul className="grid grid-cols-2 border-2 border-t-0 border-white bg-white p-2">
-        {repr.map((r) => (
-          <li
-            className="mb-1 flex w-fit items-center text-sm font-bold text-dark"
-            key={r}
-          >
-            <Icon
-              variant="Dot"
-              className="mr-2 inline-block h-2 [&>path]:fill-dark"
-            />
-            {r}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-
 export default function Home() {
   const { monster, dispatch } = useMonsterContext();
   const [modal, setModal] = useState<boolean>(false);
@@ -87,12 +38,12 @@ export default function Home() {
 
         <div className="grid grid-cols-6 gap-4 p-6">
           <Label htmlFor="name">Name</Label>
-          <section className="col-span-full flex justify-center">
+          <section className="col-span-full flex justify-center md:justify-normal">
             <input
               autoCorrect="off"
               autoComplete="off"
               placeholder="Click me to edit"
-              className="bg-transparent text-center font-sans text-lg placeholder:text-inactive"
+              className="bg-transparent text-center font-sans text-lg placeholder:text-inactive md:text-left"
               type="text"
               id="name"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -164,7 +115,7 @@ export default function Home() {
               key={chunk.name}
               className="group relative col-span-full md:col-span-3"
             >
-              <ChunkSummary
+              <ChunkBlock
                 chunk={chunk}
                 onDelete={() => {
                   const confirmation = confirm(

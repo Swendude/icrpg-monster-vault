@@ -1,6 +1,6 @@
 "use client";
-import { Monster, MonsterGeno, toFeno } from "@/types/icrpg";
-import { gerblinGenome } from "@/types/testing";
+import { Monster, MonsterGeno, toFeno } from "@/lib/icrpg";
+import { gerblinGenome } from "@/lib/testing";
 import {
   Dispatch,
   ReactNode,

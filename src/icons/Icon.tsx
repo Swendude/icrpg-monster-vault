@@ -8,7 +8,7 @@ import D10 from "./d10_outline_number.svg";
 import D12 from "./d12_outline_number.svg";
 import D6 from "./d6_outline_number.svg";
 import Dot from "./tag_empty.svg";
-import { Dice } from "@/types/icrpg";
+import { Dice } from "@/lib/icrpg";
 
 type IconVariants = "Skull" | "Dice Skull" | "Heart" | "Dot";
 

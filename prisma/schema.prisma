@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Chunk {
+  id       Int      @id @default(autoincrement())
+  name     String   @unique
+  hp       Int
+  str      Int?
+  dex      Int?
+  con      Int?
+  int      Int?
+  wis      Int?
+  cha      Int?
+  basic    Int?
+  weapon   Int?
+  special  Int?
+  magic    Int?
+  ultimate Int?
+  Action   Action[]
+}
+
+model Action {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+  chunkId     Int
+  chunk       Chunk  @relation(references: [id], fields: [chunkId])
+}
