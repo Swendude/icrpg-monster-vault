@@ -77,6 +77,6 @@ export const chunks: Chunk[] = [
 ];
 
 export const gerblinGenome: MonsterGeno = {
-  name: "Chunky Gerblin",
-  chunks: [chunks[0], chunks[1], chunks[2]],
+  name: "Gerblin",
+  chunksIds: [1, 2, 3],
 };

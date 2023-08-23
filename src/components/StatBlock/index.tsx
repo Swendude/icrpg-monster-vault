@@ -14,7 +14,7 @@ const StatBlock = (props: StatBlockProps) => {
         className="flex items-stretch justify-center gap-1 border-b-2 border-dashed border-white bg-red py-2 data-[val='0']:border-inactive"
       >
         {props.icon}
-        <p className="font-flat text-sm">{props.name}</p>
+        <p className="font-hand text-lg">{props.name}</p>
       </div>
 
       <p

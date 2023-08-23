@@ -1,18 +1,12 @@
 import { Chunk } from "@/lib/icrpg";
 import Icon from "@/icons/Icon";
-const ChunkBlock = ({
-  chunk,
-  onDelete,
-}: {
-  chunk: Chunk;
-  onDelete: () => void;
-}) => {
-  const hpRepr = chunk.hp > 0 ? `+${chunk.hp} HEARTS` : null;
+const ChunkBlock = ({ chunk }: { chunk: Chunk }) => {
+  const hpRepr = chunk.hp > 0 ? `HEARTS +${chunk.hp}` : null;
   const statsReps = Object.entries(chunk.stats).map(
-    ([stat, val]) => `+${val} ${stat}`,
+    ([stat, val]) => `${stat} +${val}`,
   );
   const effortReps = Object.entries(chunk.efforts).map(
-    ([effort, val]) => `+${val} ${effort}`,
+    ([effort, val]) => `${effort} +${val}`,
   );
   const actionReps = chunk.actions.map((action) => action.name);
 
@@ -21,31 +15,13 @@ const ChunkBlock = ({
   );
 
   return (
-    <div className="">
-      <div className="flex justify-between rounded-t-xl border-b-2 border-dashed border-white bg-red p-2 pt-2 font-flat text-white">
-        <h2 className="">{chunk.name}:</h2>
-        <button
-          onClick={onDelete}
-          className="aspect-square h-8 rounded-full border-2 bg-white text-xs text-red hover:bg-red"
-        >
-          🗙
-        </button>
-      </div>
-
-      <ul className="grid grid-cols-2 border-2 border-t-0 border-white bg-white p-2">
+    <div className="font-hand flex h-20 items-center gap-4 rounded-xl border border-b-2 border-white px-4 py-1 text-white">
+      <h2 className="text-2xl font-black">{chunk.name}:</h2>
+      <div className="flex max-h-full flex-col flex-wrap gap-1 gap-x-4">
         {repr.map((r) => (
-          <li
-            className="mb-1 flex w-fit items-center text-sm font-bold text-dark"
-            key={r}
-          >
-            <Icon
-              variant="Dot"
-              className="mr-2 inline-block h-2 [&>path]:fill-dark"
-            />
-            {r}
-          </li>
+          <p key={r}>{r}</p>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

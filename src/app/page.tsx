@@ -1,149 +1,31 @@
-"use client";
-import ChunkBlock from "@/components/ChunkBlock";
-import ChunkSelect from "@/components/ChunkSelect";
 import Header from "@/components/Header";
-import Modal from "@/components/Modal";
-import StatBlock from "@/components/StatBlock";
-import { MonsterContext, useMonsterContext } from "@/context/MonsterContext";
-import Icon from "@/icons/Icon";
-import { Chunk, EFFORTS, Monster, STATS } from "@/lib/icrpg";
-import { ClassType, ReactNode, useState } from "react";
+import MonsterEditor from "@/components/MonsterEditor";
 
-const Label = ({
-  children,
-  htmlFor,
-  className,
-}: {
-  children: ReactNode;
-  htmlFor: string;
-  className?: String;
-}) => {
-  return (
-    <label
-      htmlFor={htmlFor}
-      className={`font-flat  text-3xl text-red ${className} col-span-full flex flex-col text-center md:text-left`}
-    >
-      {children}
-    </label>
-  );
+import { prisma } from "@/lib/utils/db";
+import { dbChunktoClientChunk } from "@/lib/icrpg";
+import { MonsterProvider } from "@/context/MonsterContext";
+
+const getChunks = async () => {
+  const chunks = await prisma.chunk.findMany({
+    include: {
+      actions: true,
+    },
+  });
+
+  console.log(chunks);
+  return chunks.map(dbChunktoClientChunk);
 };
 
-export default function Home() {
-  const { monster, dispatch } = useMonsterContext();
-  const [modal, setModal] = useState<boolean>(false);
+export default async function Home() {
+  const chunks = await getChunks();
   return (
     <>
-      <main className="mx-auto max-w-3xl overflow-hidden rounded-t-xl border-4 border-white  bg-dark text-white md:mt-8">
-        <Header />
-
-        <div className="grid grid-cols-6 gap-4 p-6">
-          <Label htmlFor="name">Name</Label>
-          <section className="col-span-full flex justify-center md:justify-normal">
-            <input
-              autoCorrect="off"
-              autoComplete="off"
-              placeholder="Click me to edit"
-              className="bg-transparent text-center font-sans text-lg placeholder:text-inactive md:text-left"
-              type="text"
-              id="name"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                dispatch({ type: "updateName", value: e.target.value })
-              }
-              value={monster.name}
-            />
-          </section>
-          <Label htmlFor="hearts">Hearts</Label>
-          <section className="col-span-full flex flex-col text-center md:col-span-3 md:text-left">
-            <div className="flex">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
-                <Icon
-                  variant="Heart"
-                  key={i}
-                  data-status={i <= monster.hp ? "filled" : "empty"}
-                  className="
-                    w-8 
-                    [&>path]:fill-none
-                    [&>path]:stroke-inactive 
-                    [&>path]:stroke-[4]
-                    [&>path]:data-[status=filled]:fill-red
-                    [&>path]:data-[status=filled]:stroke-white"
-                />
-              ))}
-            </div>
-          </section>
-          <Label htmlFor="stats">Stats</Label>
-
-          {STATS.map((stat) => (
-            <div key={stat} className=" col-span-3 md:col-span-1">
-              <StatBlock
-                name={stat}
-                value={monster.stats[stat] || 0}
-                icon={
-                  <Icon variant="D20" className="w-5 [&>path]:fill-white" />
-                }
-              />
-            </div>
-          ))}
-
-          <Label htmlFor="effort">Effort</Label>
-
-          {EFFORTS.map(([effort, variant]) => (
-            <div className="col-span-3 md:col-span-1" key={effort}>
-              <StatBlock
-                key={effort}
-                name={effort}
-                value={monster.efforts[effort] || 0}
-                icon={
-                  <Icon variant={variant} className="w-5 [&>path]:fill-white" />
-                }
-              />
-            </div>
-          ))}
-
-          <Label htmlFor="actions">Actions</Label>
-
-          {monster.actions.map((action) => (
-            <div key={action.name} className="col-span-full md:col-span-3">
-              <h3 className="font-flat">{action.name}:</h3>
-              <p>{action.description}</p>
-            </div>
-          ))}
-
-          <Label htmlFor="chunks">Chunks</Label>
-          {monster.chunks.map((chunk, i) => (
-            <div
-              key={chunk.name}
-              className="group relative col-span-full md:col-span-3"
-            >
-              <ChunkBlock
-                chunk={chunk}
-                onDelete={() => {
-                  const confirmation = confirm(
-                    `Are you sure you want to delete the chunk "${chunk.name}" from this monster?`,
-                  );
-                  if (confirmation) {
-                    dispatch({ type: "removeChunk", chunkId: chunk.id });
-                  }
-                }}
-              />
-            </div>
-          ))}
-          <div
-            onClick={() => setModal(true)}
-            className="relative col-span-6 grid cursor-pointer place-content-center overflow-hidden rounded-xl bg-red transition-transform duration-100 ease-in-out hover:scale-105 md:col-span-3"
-          >
-            <p className="p-2 pl-4 font-flat text-white">+ Add new chunk</p>
-          </div>
-        </div>
-      </main>
-      <Modal toggle={() => setModal(!modal)} shown={modal}>
-        <div
-          className="flex flex-col items-center gap-4 rounded-xl border-2 border-white bg-dark p-8"
-          onClick={(event) => event.stopPropagation()}
-        >
-          <ChunkSelect />
-        </div>
-      </Modal>
+      <MonsterProvider chunkCatalog={chunks}>
+        <main className="mx-auto max-w-3xl overflow-hidden rounded-t-xl border-4 border-white  bg-dark text-white md:mt-8">
+          <Header />
+          <MonsterEditor chunks={chunks} />
+        </main>
+      </MonsterProvider>
     </>
   );
 }

@@ -25,7 +25,7 @@ model Chunk {
   special  Int?
   magic    Int?
   ultimate Int?
-  Action   Action[]
+  actions  Action[]
 }
 
 model Action {

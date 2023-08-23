@@ -1,16 +1,15 @@
-import { chunks } from "@/lib/testing";
+import { useMonsterContext } from "@/context/MonsterContext";
+import { Chunk } from "@/lib/icrpg";
+import ChunkBlock from "../ChunkBlock";
 
-const ChunkSelect = () => {
+const ChunkSelect = ({ chunks }: { chunks: Chunk[] }) => {
+  const { monster } = useMonsterContext();
   return (
-    <section>
-      <form>
-        <select>
-          {chunks.map((c) => {
-            return <option key={c.id}></option>;
-          })}
-        </select>
-      </form>
-    </section>
+    <form className="min-w-max">
+      {chunks.map((c) => (
+        <ChunkBlock key={c.id} chunk={c} />
+      ))}
+    </form>
   );
 };
 

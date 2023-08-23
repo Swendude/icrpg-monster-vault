@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
+import { Patrick_Hand } from "next/font/google";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -13,6 +14,12 @@ const inter = Inter({
 const flatbread = localFont({
   src: "../../public/fonts/FlatBread.ttf",
   variable: "--flatbread",
+});
+
+const hand = Patrick_Hand({
+  weight: ["400"],
+  variable: "--hand",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -26,13 +33,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <MonsterProvider>
-        <body
-          className={`${inter.variable} ${flatbread.variable} bg-stone-950 font-sans`}
-        >
-          {children}
-        </body>
-      </MonsterProvider>
+      <body
+        className={`${hand.variable} ${inter.variable} ${flatbread.variable} bg-stone-950 font-sans`}
+      >
+        {children}
+      </body>
     </html>
   );
 }

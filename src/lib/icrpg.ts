@@ -1,3 +1,5 @@
+import { Prisma } from "@prisma/client";
+
 export type Dice = "D4" | "D6" | "D8" | "D10" | "D12" | "D20";
 
 export const STATS = ["STR", "DEX", "CON", "INT", "WIS", "CHA"] as const;
@@ -25,7 +27,6 @@ export const effortKeys: Effort[] = [
 ];
 
 export type Action = {
-  id: number;
   name: string;
   description: string;
 };
@@ -52,7 +53,7 @@ type ChunkAttrs = Omit<Chunk, "name" | "description" | "id">;
 
 export type MonsterGeno = {
   name: string;
-  chunks: Chunk[];
+  chunksIds: number[];
 };
 
 const addAttrRecord = <T extends Partial<Record<string, number>>>(
@@ -76,8 +77,12 @@ export const addChunk = (g1: ChunkAttrs, g2: ChunkAttrs): ChunkAttrs => {
   };
 };
 
-export const toFeno = (mg: MonsterGeno): Monster => {
-  const chunkAttrs: ChunkAttrs[] = mg.chunks.map((c) => {
+export const toFeno = (mg: MonsterGeno, chunkCatalog: Chunk[]): Monster => {
+  const chunks = mg.chunksIds
+    .map((id) => chunkCatalog.find((c) => c.id === id))
+    .filter((c) => c !== undefined) as Chunk[];
+
+  const chunkAttrs: ChunkAttrs[] = chunks.map((c) => {
     const { name, ...attrs } = c;
     return attrs;
   });
@@ -90,6 +95,36 @@ export const toFeno = (mg: MonsterGeno): Monster => {
   return {
     name: mg.name,
     ...totalAttrs,
-    chunks: mg.chunks,
+    chunks: chunks,
+  };
+};
+
+export const dbChunktoClientChunk = (
+  c: Prisma.ChunkGetPayload<{
+    include: {
+      actions: true;
+    };
+  }>,
+): Chunk => {
+  return {
+    id: c.id,
+    name: c.name,
+    hp: c.hp,
+    efforts: {
+      BASIC: c.basic || undefined,
+      WEAPON: c.weapon || undefined,
+      SPECIAL: c.special || undefined,
+      MAGIC: c.magic || undefined,
+      ULTIMATE: c.ultimate || undefined,
+    },
+    stats: {
+      STR: c.str || undefined,
+      DEX: c.dex || undefined,
+      CON: c.con || undefined,
+      INT: c.int || undefined,
+      WIS: c.wis || undefined,
+      CHA: c.cha || undefined,
+    },
+    actions: c.actions,
   };
 };

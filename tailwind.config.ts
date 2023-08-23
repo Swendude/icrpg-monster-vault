@@ -11,6 +11,7 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--inter)"],
         flat: ["var(--flatbread)"],
+        hand: ["var(--hand)"],
       },
       colors: {
         red: "#9b2226",
