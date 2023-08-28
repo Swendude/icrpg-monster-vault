@@ -12,7 +12,6 @@ const getChunks = async () => {
     },
   });
 
-  console.log(chunks);
   return chunks.map(dbChunktoClientChunk);
 };
 

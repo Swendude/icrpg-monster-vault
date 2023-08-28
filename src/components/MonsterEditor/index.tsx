@@ -23,7 +23,7 @@ const Label = ({
   return (
     <label
       htmlFor={htmlFor}
-      className={`font-hand text-3xl text-red ${className} col-span-full flex flex-col text-center md:text-left`}
+      className={`font-hand text-4xl text-red ${className} col-span-full flex flex-col text-center md:text-left`}
     >
       {children}
     </label>
@@ -31,9 +31,9 @@ const Label = ({
 };
 
 const MonsterEditor = ({ chunks }: { chunks: Chunk[] }) => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  // const router = useRouter();
+  // const pathname = usePathname();
+  // const searchParams = useSearchParams();
   const { monster, dispatch } = useMonsterContext();
   const [modal, setModal] = useState<boolean>(false);
   return (
@@ -45,37 +45,26 @@ const MonsterEditor = ({ chunks }: { chunks: Chunk[] }) => {
             autoCorrect="off"
             autoComplete="off"
             placeholder="Click me to edit"
-            className="bg-transparent text-center font-sans text-lg placeholder:text-inactive md:text-left"
+            className="bg-transparent text-center font-hand text-2xl placeholder:text-inactive md:text-left"
             type="text"
             id="name"
-            onBlur={(e: React.ChangeEvent<HTMLInputElement>) => {
-              router.replace(
-                pathname +
-                  "?" +
-                  new URLSearchParams({
-                    name: e.currentTarget.value,
-                  }).toString(),
-                { scroll: false },
-              );
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              dispatch({ type: "updateName", value: e.currentTarget.value });
             }}
-            // value={searchParams.get("name") || ""}
+            value={monster.name}
           />
         </section>
         <Label htmlFor="hearts">Hearts</Label>
         <section className="col-span-full flex flex-col text-center md:col-span-3 md:text-left">
           <div className="flex">
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
+            {[...new Array(monster.hp)].map((i) => (
               <Icon
                 variant="Heart"
                 key={i}
-                data-status={i <= monster.hp ? "filled" : "empty"}
                 className="
-              w-8 
-              [&>path]:fill-none
-              [&>path]:stroke-inactive 
-              [&>path]:stroke-[4]
-              [&>path]:data-[status=filled]:fill-red
-              [&>path]:data-[status=filled]:stroke-white"
+              w-10 
+              [&>path]:fill-red
+              "
               />
             ))}
           </div>
@@ -107,7 +96,7 @@ const MonsterEditor = ({ chunks }: { chunks: Chunk[] }) => {
           </div>
         ))}
 
-        <Label htmlFor="actions">Actions</Label>
+        <Label htmlFor="actions">Actions & Traits</Label>
 
         {monster.actions.map((action) => (
           <div key={action.name} className="col-span-full md:col-span-3">
@@ -130,14 +119,11 @@ const MonsterEditor = ({ chunks }: { chunks: Chunk[] }) => {
         </div>
       </div>
 
-      {/* <Modal toggle={() => setModal(!modal)} shown={modal}>
-        <div
-          className="flex flex-col items-center gap-4 rounded-xl border-2 border-white bg-dark p-8"
-          onClick={(event) => event.stopPropagation()}
-        >
+      <Modal toggle={() => setModal(!modal)} shown={modal}>
+        <div className="flex flex-col items-center gap-4 rounded-xl border-2 border-white bg-dark p-8">
           <ChunkSelect chunks={chunks} />
         </div>
-      </Modal> */}
+      </Modal>
     </>
   );
 };

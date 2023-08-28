@@ -11,18 +11,22 @@ const Modal = ({
     <div
       id="modal"
       data-shown={shown}
-      className="fixed inset-0 hidden h-screen w-screen place-content-center overflow-y-auto bg-dark bg-opacity-70 data-[shown=true]:grid"
-      onClick={toggle}
+      className="fixed inset-0 hidden h-screen w-screen flex-col place-content-center items-center gap-4 overflow-y-auto bg-dark bg-opacity-70 data-[shown=true]:flex"
+      onClick={() => {
+        console.log("BACKSP");
+        toggle();
+      }}
     >
       {children}
       <button
-        className="rounded-xl bg-white px-4 py-1 text-dark"
+        className="aspect-square rounded-full bg-white p-4 font-hand text-dark"
         onClick={(event) => {
           event.stopPropagation();
+          console.log("BUT");
           toggle();
         }}
       >
-        close
+        X
       </button>
     </div>
   );
