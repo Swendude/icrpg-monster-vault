@@ -8,11 +8,13 @@
     "start": "next start",
     "lint": "next lint",
     "db:push": "dotenv -e .env.local prisma db push",
-    "db:reset": "dotenv -e .env.local prisma db push --force-reset",
-    "db:seed": "dotenv -e .env.local tsx prisma/seed/seed.ts"
+    "db:reset": "dotenv -e .env.local -- prisma db push --force-reset",
+    "db:seed": "dotenv -e .env.local tsx prisma/seed/seed.ts",
+    "db:studio": "dotenv -e .env.local prisma studio"
   },
   "dependencies": {
     "@prisma/client": "5.2.0",
+    "@radix-ui/react-dialog": "^1.0.4",
     "@radix-ui/react-hover-card": "^1.0.6",
     "@radix-ui/react-tooltip": "^1.0.6",
     "@svgr/webpack": "^8.1.0",
@@ -42,6 +44,7 @@
   "devDependencies": {
     "prettier": "^3.0.2",
     "prettier-plugin-tailwindcss": "^0.5.3",
-    "ts-jest": "^29.1.1"
+    "ts-jest": "^29.1.1",
+    "tsx": "^3.12.8"
   }
 }

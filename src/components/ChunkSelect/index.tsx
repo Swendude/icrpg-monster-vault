@@ -5,7 +5,7 @@ import ChunkBlock from "../ChunkBlock";
 const ChunkSelect = ({ chunks }: { chunks: Chunk[] }) => {
   const { monster, geno, dispatch } = useMonsterContext();
   return (
-    <form className="">
+    <form className="h-96 overflow-y-scroll">
       {chunks.map((c) => (
         <div key={c.id} className="mb-4 grid grid-cols-[1fr_7fr] items-center">
           <input

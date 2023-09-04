@@ -23,6 +23,48 @@ export const chunks: Prisma.ChunkUncheckedCreateInput[] = [
     name: "Extra Tentacle",
     hp: 1,
   },
+  {
+    id: 4,
+    name: "Thick hide",
+    hp: 1,
+    con: 2,
+  },
+  {
+    id: 5,
+    name: "Strong",
+    hp: 0,
+    str: 2,
+  },
+  {
+    id: 6,
+    name: "Fast",
+    hp: 0,
+    dex: 2,
+  },
+  {
+    id: 7,
+    name: "Wise",
+    hp: 0,
+    wis: 2,
+  },
+  {
+    id: 8,
+    name: "Though",
+    hp: 0,
+    con: 2,
+  },
+  {
+    id: 9,
+    name: "Smart",
+    hp: 0,
+    int: 2,
+  },
+  {
+    id: 10,
+    name: "Social",
+    hp: 0,
+    cha: 2,
+  },
 ];
 
 export const actions: Prisma.ActionUncheckedCreateInput[] = [
@@ -59,5 +101,18 @@ export const actions: Prisma.ActionUncheckedCreateInput[] = [
     description:
       "TARGET must succeed on a HARD DEX check or you pull it in to CLOSE",
     chunkId: 3,
+  },
+  {
+    id: 6,
+    name: "Tough",
+    description:
+      "The creature has a thick skin, and only takes 1/2 WEAPON damage.",
+    chunkId: 4,
+  },
+  {
+    id: 7,
+    name: "Slow",
+    description: "The creature can't RUN",
+    chunkId: 4,
   },
 ];

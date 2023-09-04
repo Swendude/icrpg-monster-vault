@@ -11,11 +11,6 @@ const inter = Inter({
   variable: "--inter",
 });
 
-const flatbread = localFont({
-  src: "../../public/fonts/FlatBread.ttf",
-  variable: "--flatbread",
-});
-
 const hand = Patrick_Hand({
   weight: ["400"],
   variable: "--hand",
@@ -32,9 +27,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body
-        className={`${hand.variable} ${inter.variable} ${flatbread.variable} bg-stone-950 font-sans`}
+        className={`${hand.variable} ${inter.variable} bg-stone-950 font-hand`}
       >
         {children}
       </body>

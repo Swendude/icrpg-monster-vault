@@ -6,17 +6,17 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
         sans: ["var(--inter)"],
-        flat: ["var(--flatbread)"],
         hand: ["var(--hand)"],
       },
       colors: {
         red: "#9b2226",
         dark: "#0c0a09",
-        white: "#e7e5e4",
+        white: "rgb(203 213 225)",
         inactive: "#a1a1aa",
       },
       borderRadius: {
