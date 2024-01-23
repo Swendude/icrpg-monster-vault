@@ -6,7 +6,7 @@ const Header = () => (
       variant="Dice Skull"
       className="inline-block w-4 [&>path]:fill-white"
     />
-    <h1 className="pl-4 font-hand md:text-xl">ICRPG MONSTER VAULT</h1>
+    <h1 className="pl-4 font-hand md:text-xl">ICRPG MONSTER VAULT!</h1>
   </section>
 );
 
